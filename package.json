@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
-    "test": "jest"
+    "test": "jest --watch",
+    "jsii": "jsii"
   },
   "devDependencies": {
     "@aws-cdk/assert": "1.58.0",
@@ -17,12 +18,35 @@
     "typescript": "~3.7.2"
   },
   "peerDependencies": {
-    "@aws-cdk/core": "1.58.0"
+    "@aws-cdk/aws-iam": "^1.58.0",
+    "@aws-cdk/aws-lambda": "^1.58.0",
+    "@aws-cdk/aws-s3": "^1.58.0",
+    "@aws-cdk/core": "1.58.0",
+    "constructs": "^3.0.4"
   },
+  "author": {
+    "name": "Alexander Melnyk"
+  },
+  "jsii": {
+    "outdir": "dist",
+    "targets": {
+      "python": {
+        "distName": "devax.s3-lambda-s3",
+        "module": "devax.s3_lambda_s3"
+      }
+    }
+  },
+  "repository": {
+    "url": "https://github.com/am29d/s3-lambda-s3",
+    "type": "git"
+  },
+  "license": "Apache-2.0",
   "dependencies": {
-    "@aws-cdk/aws-sns": "1.58.0",
-    "@aws-cdk/aws-sns-subscriptions": "1.58.0",
-    "@aws-cdk/aws-sqs": "1.58.0",
-    "@aws-cdk/core": "1.58.0"
+    "@aws-cdk/aws-iam": "^1.58.0",
+    "@aws-cdk/aws-lambda": "^1.58.0",
+    "@aws-cdk/aws-s3": "^1.58.0",
+    "@aws-cdk/core": "1.58.0",
+    "@types/nodeunit": "^0.0.31",
+    "nodeunit": "^0.11.3"
   }
 }

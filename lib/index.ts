@@ -1,32 +1,33 @@
-import * as sns from '@aws-cdk/aws-sns';
-import * as subs from '@aws-cdk/aws-sns-subscriptions';
-import * as sqs from '@aws-cdk/aws-sqs';
 import * as cdk from '@aws-cdk/core';
+import {Bucket, BucketEncryption} from "@aws-cdk/aws-s3";
+import {AssetCode, Function, Runtime} from "@aws-cdk/aws-lambda";
 
 export interface S3LambdaS3Props {
-  /**
-   * The visibility timeout to be configured on the SQS Queue, in seconds.
-   *
-   * @default Duration.seconds(300)
-   */
-  visibilityTimeout?: cdk.Duration;
+  readonly handler: string
+  readonly code: AssetCode
 }
 
 export class S3LambdaS3 extends cdk.Construct {
-  /** @returns the ARN of the SQS queue */
-  public readonly queueArn: string;
-
-  constructor(scope: cdk.Construct, id: string, props: S3LambdaS3Props = {}) {
+  constructor(scope: cdk.Construct, id: string, props: S3LambdaS3Props) {
     super(scope, id);
 
-    const queue = new sqs.Queue(this, 'S3LambdaS3Queue', {
-      visibilityTimeout: props.visibilityTimeout || cdk.Duration.seconds(300)
+    const srcS3Bucket = new Bucket(this, 'sourceBucket', {
+      encryption: BucketEncryption.KMS_MANAGED
     });
 
-    const topic = new sns.Topic(this, 'S3LambdaS3Topic');
+    const destS3Bucket = new Bucket(this, 'destinationBucket', {
+      encryption: BucketEncryption.KMS_MANAGED
+    });
 
-    topic.addSubscription(new subs.SqsSubscription(queue));
+    const handler = new Function(this, 'handlerLambdaFunction', {
+      code: props.code,
+      handler: props.handler,
+      runtime: Runtime.PYTHON_3_8,
+    });
 
-    this.queueArn = queue.queueArn;
+    srcS3Bucket.grantRead(handler.grantPrincipal);
+
+    destS3Bucket.grantWrite(handler.grantPrincipal);
+
   }
 }
