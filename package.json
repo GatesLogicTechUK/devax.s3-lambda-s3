@@ -42,11 +42,11 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@aws-cdk/aws-iam": "^1.58.0",
-    "@aws-cdk/aws-lambda": "^1.58.0",
-    "@aws-cdk/aws-s3": "^1.58.0",
+    "@aws-cdk/aws-iam": "1.58.0",
+    "@aws-cdk/aws-lambda": "1.58.0",
+    "@aws-cdk/aws-s3": "1.58.0",
     "@aws-cdk/core": "1.58.0",
-    "@types/nodeunit": "^0.0.31",
+    "@aws-cdk/aws-lambda-event-sources": "1.58.0",
     "nodeunit": "^0.11.3"
   }
 }
