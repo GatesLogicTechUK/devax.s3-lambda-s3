@@ -6,7 +6,7 @@ In this project we have a construct that contains three resources:
 * processing lambda function
 * destination S3 bucket
 
-The user of the construct only need to provide code and handler name and eveything else will be created by the construct:
+The user of the construct only needs to provide the code and lambda handler name and eveything else will be created by the construct:
 Here is a python example how this construct will be used by developers:
 
 ```python
@@ -24,7 +24,7 @@ class CdkCustomConstructExampleStack(core.Stack):
 
 To demonstrate the ability to leverage CDK abstractions we have the following constraints about the construct:
 * s3 buckets are versioned and encrypted by default. 
-* lambda function runtime is always python in version 3.8, so there is no need to pass it from the user
+* lambda function runtime is always python in version 3.8, so there is no need to pass it by the user
 * the lambda function can only read from the source S3 bucket
 * the lambda function can only write/delete from the destination S3 bucket
 * writing an object to a source S3 bucket will trigger the lambda function
@@ -38,7 +38,7 @@ To demonstrate the ability to leverage CDK abstractions we have the following co
 ## JSII setup
 
 * install [jsii](https://github.com/aws/jsii) this will include [jsii-pacmak](https://github.com/aws/jsii/tree/master/packages/jsii-pacmak)
-* add the following required configuration to your `package.json`
+* add the required configuration to your `package.json`
 ```json
 {
 ...
